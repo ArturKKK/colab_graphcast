@@ -41,7 +41,7 @@ TARGET_SURFACE_VARS = (
     'mean_sea_level_pressure',
     '10m_v_component_of_wind',
     '10m_u_component_of_wind',  # GenCast predicts in 12hr timesteps.
-    'total_precipitation_12hr',
+    # 'total_precipitation_12hr',
     'sea_surface_temperature',
 )
 
@@ -50,7 +50,7 @@ TARGET_SURFACE_NO_PRECIP_VARS = (
     'mean_sea_level_pressure',
     '10m_v_component_of_wind',
     '10m_u_component_of_wind',
-    'sea_surface_temperature',
+    # 'sea_surface_temperature',
 )
 
 
@@ -261,8 +261,8 @@ class GenCast(predictor_base.Predictor):
             '10m_u_component_of_wind': 0.1,
             '10m_v_component_of_wind': 0.1,
             'mean_sea_level_pressure': 0.1,
-            'sea_surface_temperature': 0.1,
-            'total_precipitation_12hr': 0.1
+            'sea_surface_temperature': 0.1
+            # 'total_precipitation_12hr': 0.1
         },
     )
     loss *= self._loss_weighting(noise_levels)
