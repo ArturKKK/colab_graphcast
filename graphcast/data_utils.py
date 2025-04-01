@@ -338,7 +338,16 @@ def extract_inputs_targets_forcings(
 
   # `datetime` is needed by add_derived_vars but breaks autoregressive rollouts.
   dataset = dataset.drop_vars("datetime")
-
+  # ---- Новое: выбор нужных уровней по давлению ----
+  if "level" in dataset.coords:
+      # Проверяем, что все требуемые уровни есть в данных.
+      missing_levels = [lev for lev in pressure_levels if lev not in dataset["level"].values]
+      if missing_levels:
+          print(f"Warning: levels {missing_levels} not found in dataset.level, selecting first available level instead.")
+          dataset = dataset.isel(level=0)
+      else:
+          dataset = dataset.sel(level=pressure_levels)
+  # --------------------------------------------------
   inputs, targets = extract_input_target_times(
       dataset,
       input_duration=input_duration,
